@@ -13,20 +13,7 @@ module.exports = {
         nav: [
             { text: '首页', link: '/' },
             { text: '设计', link: '/disign/'},
-            { 
-                text: '程序',
-                link: '/programming/',
-                items: [
-                    {
-                        text: 'vuepress快速构建个人博客',
-                        link: '/programming/vuepress/',
-                    },
-                    { 
-                        text: '前端开发',
-                        link: '/programming/front-end-development/',
-                    },
-                ]
-            },
+            { text: '程序', link: '/programming/'},
             { text: '摄影', link: '/photo/'},
             { text: '关于', link: '/about' },
             { text: '时间线', link: '/timeline' },
@@ -39,35 +26,15 @@ module.exports = {
                 ]
             }
         ],
-        // sidebar: 'auto',
-        // sidebar: {
-        //     '/disign/': [
-        //         ['/disign/', '设计'],
-        //     ],
-        //     '/programming/': [
-        //         ['/programming/', '程序'],
-        //         ['/programming/front-end-development', '前端开发'],
-        //     ],
-        //     '/photo/': [
-        //         ['/photo/', '摄影'],
-        //     ],
-        //     '/': [
-        //         '',
-        //         'about',
-        //         'timeline',
-        //     ]
-        // },
         sidebar: {
             '/disign/': [
                 ['/disign/', '设计'],
             ],
             '/programming/': [
                 ['/programming/', '程序'],
-                // ['/programming/front-end-development', '前端开发'],
-                // ['/programming/back-end-development', '后端开发'],
-            ],
-            '/programming/front-end-development/': [
+                ['/programming/vuepress/', "vuepress构建个人博客"],
                 ['/programming/front-end-development/', '前端开发'],
+                ['/programming/front-end-development/first-stage/', '前端开发第一阶段'],
             ],
             '/photo/': [
                 ['/photo/', '摄影'],
@@ -76,7 +43,7 @@ module.exports = {
                 '',
                 'about',
                 'timeline',
-            ],
+            ]
         },
         displayAllHeaders: true,
         lastUpdated: '上次更新',
