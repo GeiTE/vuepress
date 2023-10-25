@@ -35,6 +35,7 @@ module.exports = {
                 ['/programming/vuepress/', "vuepress构建个人博客"],
                 ['/programming/front-end-development/', '前端开发'],
                 ['/programming/front-end-development/first-stage/', '前端开发第一阶段'],
+                ['/programming/front-end-development/first-stage/html/', 'HTML简述'],
             ],
             '/photo/': [
                 ['/photo/', '摄影'],

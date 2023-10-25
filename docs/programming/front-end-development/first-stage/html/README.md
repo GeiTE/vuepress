@@ -98,3 +98,54 @@
 ```
 
 ​		`img`标签是一个行内元素，如果宽度不够不会独自占一行。
+
+​		HTML中在`img`的基础上还有一个拓展标签map，它的功能是通过正方形的四个位置坐标定义一块区域，搭配area标签提供img图片不同区域的分别跳转。（这种能力现在一般被H5的Canvas画板代替）
+
+​		具体实现代码如下：
+
+```html
+<img src="demo.jpg" usemap="#planetmap" />
+
+<map name="planetmap"> <!--name对应img的usemap的锚点值-->
+    <area shape="rect" coords="0,0,82,126" alt="Sun" href="sun.gif" />
+    <area shape="circle" coords="124,58,8" alt="Venus" href="venglobe.gif">	<!--点击了选取后会弹出href图片新窗口-->
+</map>
+```
+
+## 9、HTML的列表
+
+​		常用的就是`ul`，一般重复类似的内容使用ul，例如轮播图内的每个轮播图图片，就会使用ul，不过随着弹性盒子和H5新增的语义化标签，很多时候开发都是使用这些语义化标签和使用`div`(盒子标签)，结合class类实现页面效果。
+
+## 10、HTML区块
+
+​		`HTML`元素分为两大类，一类是块级元素，一类是内联元素。一般都是块级元素包裹内链元素。因为块级元素默认宽度是占据一行，并且能够通过`css`自定义看高度等；而内联元素的高宽度则是根据标签内内容的高宽度自动匹配的，当多个内联元素的宽度相加都不超过一行的宽度时，内联元素间时不会换行显示的，并且我们也不能够通过自定义标签的宽高度，只能够通过修改其内容的高宽度来让其自动适配。
+
+​		常见的块级元素：`h1`,`p`,`div`等。常见的内联元素：`b`,`td`,`a`等
+
+​		在实际开发中我们可能会遇到这样一个需求，例如`a`标签，我需要它编程一个按钮的形式，但是它是一个内联标签，不能够自定义高宽度，这时我们可以通过设置该`a`标签的`css`样式的`display`，来实现块级元素和内联元素等不同类型元素的转换，例如：
+
+```html
+<a href="#" style="display: block;width:120px;height:60px;background-color:red;">button</a> <!--内联元素转块级元素-->
+<div style="display: inline">div</div><div style="display: inline">div</div>
+```
+
+​		假如我们想要标签能够设置宽高，同时又不会占据一行时，可以设置为`inline-block`元素类型：
+
+```
+<a href="#" style="display: inline-block;width:120px;height:60px;background-color:red;">button</a> <!--内联块元素转块级元素-->
+```
+
+​		另外还有一种在H5开发中常常会用到的弹性盒子类型`flex`，它能够根据外部弹性盒子（块级元素）的宽度，分配被包裹标签（不管的块级元素还是其他的任何类型的元素）的宽度，并且能够配置其对其方式、排序方式等等。
+
+```html
+<div style="display: flex; justify-content: center; align-items: center;">
+    <div style="width: 100px; height: 100px; background-color: red;">1</div>
+    <div style="width: 100px; height: 100px; background-color: blue;">2</div>
+</div>
+```
+
+​		上面知识弹性盒子一个简单的实例，后续我们会详细讲一下弹性盒子的各种参数和开发时会怎么使用。
+
+## 11、网站的布局方式
+
+​		`HTML4.1`的网站布局一般通过普通的`div`盒子布局和`table`表格，搭配class类型进行布局，现阶段标准和推荐的是使用H5的布局语义化标签，搭配弹性盒子进行布局。
