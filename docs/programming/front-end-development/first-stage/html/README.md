@@ -149,3 +149,32 @@
 ## 11、网站的布局方式
 
 ​		`HTML4.1`的网站布局一般通过普通的`div`盒子布局和`table`表格，搭配class类型进行布局，现阶段标准和推荐的是使用H5的布局语义化标签，搭配弹性盒子进行布局。
+
+## 12、表单
+
+​		表单需要注意的是数据提交，在实际开发中需要注意提交后的自动刷新和表单数据提交前的数据验证工作。
+
+​		默认的`form`表单通过`submit`按钮提交，我们通过`action`属性设置提交的接口，`method`设置提交方式，我们来看一下普通form表单的案例：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>form表单提交</title>
+</head>
+<body>
+<!-- 只是提供简单的例子,所以未添加任何的css样式 -->
+<form action="Controller/method" method="post">
+    <input type="text" name="name"/>
+    <input type="submit" value="提交"/>
+    <button type="submit">提交</button>
+</form>
+
+</body>
+</html>
+```
+
+​		**注意：这是如果点击了type=submit的会自动触发form表单的提交，提交后会自动刷新页面。**
+
+​		很多时候开发页面时，不会希望刷新页面，例如这样的场景：在一个列表页，
