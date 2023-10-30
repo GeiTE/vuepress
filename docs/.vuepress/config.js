@@ -36,6 +36,8 @@ module.exports = {
                 ['/programming/front-end-development/', '前端开发'],
                 ['/programming/front-end-development/first-stage/', '前端开发第一阶段'],
                 ['/programming/front-end-development/first-stage/html/', 'HTML简述'],
+                ['/programming/front-end-development/first-stage/html/html5.md', 'HTML5简述'],
+                ['/programming/front-end-development/first-stage/html/expand.md', 'HTML拓展'],
             ],
             '/photo/': [
                 ['/photo/', '摄影'],
