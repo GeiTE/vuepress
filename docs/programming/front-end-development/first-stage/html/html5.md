@@ -213,3 +213,247 @@ ondragstart="drag(event)" width="336" height="69">
   - [ondrop](https://www.w3cschool.cn/jsref/event-ondrop.html) - 在一个拖动过程中，释放鼠标键时触发此事件
 
 **注意：** 在拖动元素时，每隔 350 毫秒会触发 ondragover 事件。
+
+## 5、H5的地理位置
+
+​		地理位置`Geolocation`获取依赖于浏览器，每个浏览器默认请求的定位不同，例如谷歌浏览器默认会请求谷歌定位服务，你如果没有外网就访问不了。
+
+​		获取地理位置定位通过`getCurrentPisition()`方法，方法会返回一个包含经纬度的位置信息，因为涉及到用户的隐私，因此浏览器一般获取定位时都会提示用户是否确认同意被获取位置信息。
+
+​		**注意`Geolocation`对于用于GPS的设备，比如Iphone，地理定位更加精确。**
+
+​		在国内使用这个服务，误差还是挺大的，有700米左右的误差，在笔记本中使用Edge浏览器，我未开启定位功能误差在730左右，开了定位功能后误差在700作为——华硕笔记本；在微信浏览器中，不开启位置信息功能无法获取到坐标，开启后误差在700左右。——红米K60至尊版。
+
+| 设备                                      | 使用浏览器Geolocation服务获取经纬度 | 设备直接访问地图服务 |
+| ----------------------------------------- | ----------------------------------- | -------------------- |
+| 笔记本（开启定位服务）                    | 误差700米                           | 误差700米            |
+| 笔记本（未开启定位服务）                  | 误差730米                           | 误差730米            |
+| 安卓手机（红米K60至尊版）                 | 误差700米                           | 误差50米             |
+| 安卓手机（红米K60至尊版——未开启定位服务） | 无法获取                            | 无法获取             |
+
+​		手机使用浏览器获取经纬度和直接访问地图服务的对比最大，可以得知单纯通过`Geolocation`服务获取的位置信息误差挺大，在国内我想无法作为汽车驾驶服务的完全依赖数据。
+
+​		在实际开发中，外面想要做地图和导航时，一般都是调用第三方地图服务商的接口，例如百度、腾讯、高德等，并且提供到访服务时，最好是跳转到服务商的手机APP中，其定位和导航服务更加准确。
+
+​		下面是获取经纬度的简单实例：
+
+```html
+<script>
+var x=document.getElementById("demo");
+function getLocation()
+  {
+  if (navigator.geolocation)	// 浏览器是否支持navigator.geolocation
+    {
+    navigator.geolocation.getCurrentPosition(showPosition);
+    }
+  else{x.innerHTML="该浏览器不支持获取地理位置。";}
+  }
+function showPosition(position)
+  {
+  x.innerHTML="Latitude: " + position.coords.latitude +
+  "<br>Longitude: " + position.coords.longitude;
+  }
+</script>
+```
+
+
+
+## 6、Video和Audio
+
+​		HTML5的视频和音频，视频通过`video`标签定义，音频通过`audio`定义，他们的一些进度控制、数据预加载、直接播放等发放类似。
+
+### 浏览器Video资源兼容性
+
+| 浏览器               | MP4  | WebM | Ogg  |
+| :------------------- | :--- | :--- | :--- |
+| Internet Explorer 9+ | YES  | NO   | NO   |
+| Chrome 6+            | YES  | YES  | YES  |
+| Firefox 3.6+         | NO   | YES  | YES  |
+| Safari 5+            | YES  | NO   | NO   |
+| Opera 10.6+          | NO   | YES  | YES  |
+
+- MP4 = 带有 H.264 视频编码和 AAC 音频编码的 MPEG 4 文件
+- WebM = 带有 VP8 视频编码和 Vorbis 音频编码的 WebM 文件
+- Ogg = 带有 Theora 视频编码和 Vorbis 音频编码的 Ogg 文件
+
+### 浏览器Audio资源兼容新
+
+目前, <audio>元素支持三种音频格式文件: MP3, Wav, 和 Ogg:
+
+| 浏览器               | MP3  | Wav  | Ogg  |
+| :------------------- | :--- | :--- | :--- |
+| Internet Explorer 9+ | YES  | NO   | NO   |
+| Chrome 6+            | YES  | YES  | YES  |
+| Firefox 3.6+         | NO   | YES  | YES  |
+| Safari 5+            | YES  | YES  | NO   |
+| Opera 10+            | NO   | YES  | YES  |
+
+
+
+### Video的一个简单实例
+
+```html
+<video width="320" height="240" controls>
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
+您的浏览器不支持Video标签。
+</video>
+```
+
+video定义这是一个视频标签，而里面的source标签则表示视频标签的多个资源类型。viedeo常见的属性包括：
+
+| 属性                                                         | 值                 | 描述                                                         |
+| :----------------------------------------------------------- | :----------------- | :----------------------------------------------------------- |
+| [autoplay](https://www.w3cschool.cn/htmltags/att-video-autoplay.html) | autoplay           | 如果出现该属性，则视频在就绪后马上播放。                     |
+| [controls](https://www.w3cschool.cn/htmltags/att-video-controls.html) | controls           | 如果出现该属性，则向用户显示控件，比如播放按钮。             |
+| [height](https://www.w3cschool.cn/htmltags/att-video-height.html) | *pixels*           | 设置视频播放器的高度。                                       |
+| [loop](https://www.w3cschool.cn/htmltags/att-video-loop.html) | loop               | 如果出现该属性，则当媒介文件完成播放后再次开始播放。         |
+| [muted](https://www.w3cschool.cn/htmltags/att-video-muted.html) | muted              | 如果出现该属性，视频的音频输出为静音。                       |
+| [poster](https://www.w3cschool.cn/htmltags/att-video-poster.html) | *URL*              | 规定视频正在下载时显示的图像，直到用户点击播放按钮。         |
+| [preload](https://www.w3cschool.cn/htmltags/att-video-preload.html) | auto metadata none | 如果出现该属性，则视频在页面加载时进行加载，并预备播放。如果使用 "autoplay"，则忽略该属性。 |
+| [src](https://www.w3cschool.cn/htmltags/att-video-src.html)  | *URL*              | 要播放的视频的 URL。                                         |
+| [width](https://www.w3cschool.cn/htmltags/att-video-width.html) | *pixels*           | 设置视频播放器的宽度。                                       |
+
+### Audio的一个简单实例
+
+```html
+<audio controls>
+  <source src="horse.ogg" type="audio/ogg">
+  <source src="horse.mp3" type="audio/mpeg">
+您的浏览器不支持 audio 元素。
+</audio>
+```
+
+​		可以看到，其包裹的内容也是source，通过audio定义一个音频标签，里面的source标签则定义了音频标签的多个资源类型。
+
+其属性也与video类似：
+
+| 属性                                                         | 值                 | 描述                                                        |
+| :----------------------------------------------------------- | :----------------- | :---------------------------------------------------------- |
+| [autoplay](https://www.w3cschool.cn/htmltags/att-audio-autoplay.html) | autoplay           | 如果出现该属性，则音频在就绪后马上播放。                    |
+| [controls](https://www.w3cschool.cn/htmltags/att-audio-controls.html) | controls           | 如果出现该属性，则向用户显示音频控件（比如播放/暂停按钮）。 |
+| [loop](https://www.w3cschool.cn/htmltags/att-audio-loop.html) | loop               | 如果出现该属性，则每当音频结束时重新开始播放。              |
+| [muted](https://www.w3cschool.cn/htmltags/att-audio-muted.html) | muted              | 如果出现该属性，则音频输出为静音。                          |
+| [preload](https://www.w3cschool.cn/htmltags/att-audio-preload.html) | auto metadata none | 规定当网页加载时，音频是否默认被加载以及如何被加载。        |
+| [src](https://www.w3cschool.cn/htmltags/att-audio-src.html)  | *URL*              | 规定音频文件的 URL。                                        |
+
+## 7、新增的Input类型
+
+### 颜色表单（只有谷歌和欧鹏浏览器支持）
+
+```html
+<input type="color" name="favcolor" >
+```
+
+### 日期表单（只有谷歌和欧鹏浏览器支持）
+
+```html
+<input type="date" name="bday" >
+```
+
+### 日期时间表单（只有Safari和欧鹏浏览器支持）
+
+```html
+<input type="datetime" name="bdaytime" >
+```
+
+### 无时区的日期时间表单（谷歌、Safari、欧鹏浏览器支持）
+
+```html
+<input type="datetime-local" name="bdaytime">
+```
+
+### 邮箱地址表单（IE、火狐、谷歌、欧鹏浏览器支持）
+
+```html
+<input type="email" name="email">
+```
+
+### 月份表单（谷歌、Safari、欧鹏浏览器支持）
+
+```html
+<input type="month" name="bdaymonth">
+```
+
+### 数值输入域表单（IE、谷歌、Safari、欧鹏浏览器支持）
+
+```html
+<input type="number" name="quantity" min="1" max="5" step="1" value="1">
+```
+
+### 滑动条数值输入域（IE、谷歌、Safari、欧鹏浏览器支持）
+
+```html
+<input type="range" name="points" min="1" max="10">
+```
+
+### 搜索表单（谷歌、Safari）
+
+```html
+<input type="search" name="googlesearch" >
+```
+
+### 电话号码表单（浏览器都不支持）
+
+```html
+<input type="tel" name="usertel" >
+```
+
+### 时间表单（谷歌、Safari、欧鹏）
+
+```html
+<input type="time" name="user_time" >
+```
+
+### URL地址表单（IE、火狐、谷歌、欧鹏）
+
+```html
+<input type="url" name="homepage" >
+```
+
+### 周表单（谷歌、Safari、欧鹏）
+
+```html
+<input type="week" name="week_year" >
+```
+
+## 8、新增的表单元素
+
+### 预定义所谓内容提示表单
+
+​		效果右侧会有一个下来列表，列表中有外面预定义的内容，用户可以直接选择预定义的内容输入到表单中；用户还可以选择输入内容，右侧表单会根据用户输入的内容进行匹配显示可能的预定义值。
+
+​		这种表单input标签搭配detalist标签组合实现，实例如下：
+
+```html
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8"> 
+<title>W3Cschool(w3cschool.cn)</title> 
+</head>
+<body>
+
+<form action="/statics/demosource/demo-form.php" method="get">
+<input list="browsers" name="browser">
+<datalist id="browsers">
+  <option value="Internet Explorer">
+  <option value="Firefox">
+  <option value="Chrome">
+  <option value="Opera">
+  <option value="Safari">
+</datalist>
+<input type="submit">
+</form>
+
+<p><strong>注意:</strong> Internet Explorer 9（更早IE版本），Safari不支持 datalist 标签。</p>
+
+</body>
+</html>
+```
+
+​		其他的一些表单元素开发中不常用到，便不在此赘述。
+
+## 9、新的表单属性
+
+​		对于form标签新增了novalidate提交不验证的属性、autocomplete自动完成功能，对于input表单标签择提供了在form外
