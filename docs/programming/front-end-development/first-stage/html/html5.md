@@ -456,4 +456,140 @@ video定义这是一个视频标签，而里面的source标签则表示视频标
 
 ## 9、新的表单属性
 
-​		对于form标签新增了novalidate提交不验证的属性、autocomplete自动完成功能，对于input表单标签择提供了在form外
+​		对于form标签新增了novalidate提交不验证的属性、autocomplete自动完成属性；
+
+​		对于input标签新增了autocomplete自动填充内容属性、autofocus自动对焦属性、form外规定所属form、规定单独的formaction、formencytype、formmethod、formnovalidate、formtarget
+
+​		根据上面提到的新增的input类型，对应的也新增了特定类型的input表单属性。如list、min、max、step等。
+
+​		这里主要讲几个需要理解的属性：
+
+### autocomplete属性
+
+​		官方文档说明：autocomplete 属性规定 form 或 input 域应该拥有自动完成功能。当用户在自动完成域中开始输入时，浏览器应该在该域中显示填写的选项。
+
+**提示:** autocomplete 属性有可能在 form元素中是开启的，而在input元素中是关闭的。
+
+**注意:** autocomplete 适用于 <form> 标签，以及以下类型的 <input> 标签：text, search, url, telephone, email, password, datepickers, range 以及 color。
+
+​		个人感觉就单看官方文档不容易理解，我们结合实际情况说明：
+
+​		最直观的感受就是，当我们选中表单时，如果之前我们在此表单输入过内容，那么浏览器就会在焦点聚集在表单时，弹出之前输入过的内容弹窗——这就是所谓的自动填充内容。当我们设置autocompete为off时，就表示关闭浏览器显示表单之前输入过的内容弹窗。
+
+
+
+### novalidate属性
+
+​		这里属性比较直观，表示form表单提交数据时，不验证form和input域。也就是我们设置了一些本身带有内容验证的input不会进行验证。例如emile类型的Input，设置了novalidate后，输入非邮箱格式的内容并不会提示错误。
+
+
+
+### input的单独form属性
+
+​		这些属性包括formaction、formencytype、formmethod、formnovalidate、formtarget，这些属性都是与type="submit"和type="image"配合使用，为的是在一个表单内能够进行不同方式的提交这一需求。
+
+
+
+### list属性
+
+​		list属性用于规定输入域的datalist，用于连接datalist标签。
+
+
+
+### min、max、step属性
+
+​		date、number、range类型input特有属性。
+
+
+
+### multiple属性
+
+​		email和file的属性，用于规定可以选择多个值。也就是选择上传文件时，可以一次性上传多个文件。
+
+
+
+### pattern属性
+
+​		属性值时一个正则表达式，这个正则表达式会用来验证input元素的值。搭配title属性，当输入格式错误时，会提示title中的格式要求。实例：
+
+```html
+<input type="text" name="code" pattern="[A-Za-z]{3}" title="请输入三位英文大小写字母" />
+```
+
+
+
+## 10、语义元素（语义标签）
+
+​		所谓语义，就是意义，语义元素就是有意义的元素。例如我们常见的<form>、<table>、<img>当标签出现时，我们马上就能够知道其表示表单、表格、图片的意义。而无语义的元素，例如<div>、<span>这些作为内容包裹性意义的元素。——当然它本省也表示着盒子、行内盒子的意义，但相对起来意义比较笼统，就像我们面前有很多的快递箱，我们主要的目的是需要了解箱子里面的内容，而箱子只是包裹、规范化主要内容的容器。
+
+​		有些人开发时会习惯使用div和span这些容器直接包裹内容，直接通过CSS来生成需要的效果，根本不需要这些语义化标签。而当需要方便的识别标签的不同时，直接去设置其class或者ID属性。这就导致页面中基本都是盒子，这样对于用户浏览器其实没有什么问题，因为我们浏览时只是看视觉效果。
+
+​		而语义化在现在开发所担任的职能更多的偏向了为搜索引擎、为浏览器、为开发人员理解所使用的，它能够帮助开人发人员、浏览器规范化的编写和理解页面内容。因为浏览器和搜索引擎理解标签内容时是不会去理解class名称和id名称的，就算回去理解，绝大多数开发人员在class和id命名都会简写自定义，不能够完整的描述，这样也使得浏览器、搜索引擎无法理解，使其被当作只有区别意义的一段字符串。
+
+​		HTML5语义化建议我们开发这种规格划分和编写代码：
+
+![img](./images/img_sem_elements.gif)
+
+​		建议的页面格式包括了四个大块，header头部块、主内容块、aside侧边栏块、footer脚块。他们之间也进行嵌套，个人不建议，一般这四大块只做为大的区域划分，内部假如又包括头部、脚部、侧边栏等使用class的方式。——你也可以进行嵌套，用id或者class加以区分，方便之后获取。
+
+​		其中的nav导航栏块一般可以选择放在header头部块或aside侧边栏块内，根据需求放置，也可以进行单独放置。
+
+​		住内容块包裹了section、article，一般我会将article作为主内容块包裹section节块（段落块）。
+
+​		语义化标签之间的关系并不是强求的，他在视觉效果上其实就是一个div盒子标签，他们之间的嵌套关系也不是固定的，我们尽量遵守这一规则，也许能够更快的帮助浏览器和搜索引擎、或者其他程序员理解页面内容。
+
+​		另外HTML5中还定义了<figure> 和 <figcaption> 来独立流内容（图像、图表、照片、代码等），<figcaption> 标签定义 <figure> 元素的标题。<figcaption>元素应该被置于 "figure" 元素的第一个或最后一个子元素的位置。
+
+
+
+## 11、Web存储
+
+​		Web存储就是我们能够在浏览器中存储数据，在浏览器中存储数据主要的作用是我们跳转不同页面时，我们需要的数据任然能够留存，为之后使用作为基础。例如：我们想要做登录后的作品提交功能，我们希望作品提交时验证提交人的账号和其登录状态、并将提交作品的账号信息也连带提交。
+
+​		这里我们就需要解决一个问题，我们登录后怎么在前端存储账号和登录成功的状态标识？我们如果是多页开发的话，单个页面的数据，如果通过get或者post的方式将数据传递过去能够实现数据的传递，不过这种方式就会再你的URL地址中带有参数，这个参数会使URL臃肿、数据明文传递也不安全，URL能够传递的参数也非常有限。
+
+​		那么有这样一个需求，于是出现了Web存储，专门开辟一个存储区域，存储我们想要存储的数据，这样就变成了一个将数据存入到这个空间中，其他页面就可以到这个空间获取。
+
+​		在此基础上又出现了两种不同的数据存储需求，存储的数据有长期固定不变的数据和每次进入需要变化的数据，例如：我们开发了一个可以自定义主题的后台管理系统，系统里面有一个提交图片和详情的表单，功能的需求是，自定义主题设置后，每次登录进来显示自定义的主题；系统图片和详情表单数据内容中途退出保留已填写的内容，下次在此打开时内容还在表单中，另外后台管理需要登录，并且页面的系统的安全要求很高，每次不退出登录浏览器退出，登录状态都要求不保留。——事先声明，着只是为了说明两种Web存储使用情况想出来的针对性示例。
+
+​		我们来分析一下，首先登录状态不手动退出登录，如果退出了浏览器，登录状态也不保留。开发时我们可以使用JS监听页面关闭和浏览器关闭，监听`beforeunload`，然后执行这些操作，这种是一个解决方案，但是这种方式是需要在关闭时执行语句，如果是浏览器突然卡死，或者任务管理器直接结束进程的话，JS语句就不会执行了。
+
+​		早些时候,本地存储使用的是cookies。但是Web 存储需要更加的安全与快速. 这些数据不会被保存在服务器上，但是这些数据只用于用户请求网站数据上.它也可以存储大量的数据，而不影响网站的性能。
+
+​		而另外一种方式就是使用HTML5的sessionStorage存储临时数据——默认浏览器窗口关闭数据就会清理。
+
+​		另外就是后台管理自定义配置的保存和表单中途退出数据的保存，他们一般在用户确定后点击保存才会传入到服务器，之后我们在此访问时通过服务器传递上次的数据，但是还在编辑中，达不到传入服务器的条件，又需要保留现在的进度，我们就可以使用localStorage存储这些数据，locoalStorage不手动删除（清理浏览器缓存、手动清理localStorage）数据就会一直保留。
+
+​		下面我们简单的试一下两种Web存储：
+
+### sessionStorage
+
+```html
+<script>
+	sessionStorage.setItem('username','admin');		//setItem(key, value),保存数据
+   	var _username = sessionStorage.getItem('username');		//getItem(key),获取数据
+    sessionStorage.removeItem('username');		//removeItem(key),删除单个数据
+    sessionStorage.clear();		//clear(),删除所有数据
+    sessionStorage.key(1);		//key(index),获取某个索引的key
+</script>
+```
+
+### localStorage
+
+```html
+<script>
+	localStorage.setItem('username','admin');		//setItem(key, value),保存数据
+   	var _username = localStorage.getItem('username');		//getItem(key),获取数据
+    localStorage.removeItem('username');		//removeItem(key),删除单个数据
+    localStorage.clear();		//clear(),删除所有数据
+    localStorage.key(1);		//key(index),获取某个索引的key
+</script>
+```
+
+​		可以看到他们的方式是一样的，只是存储的时间不同。
+
+
+
+## 12、Web SQL
+
+​		Web SQL 是在浏览器上模拟数据库，可以使用 JS 来操作 SQL 完成对数据的读写。Web SQL 数据库 API 并不是 HTML5 规范的一部分，但是它是一个独立的规范，引入了一组使用 SQL 操作客户端数据库的 APIs。

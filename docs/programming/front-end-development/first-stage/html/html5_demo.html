@@ -181,6 +181,31 @@ function showError(error)
       break;
     }
   }
+//   window.addEventListener('beforeunload', function(event) {
+//   event.preventDefault();
+//   event.returnValue = '';
+//   if (confirm('确定要关闭窗口吗？')) {
+//     // 用户点击了确定按钮，执行关闭操作
+//   } else {
+//     // 用户点击了取消按钮，取消关闭操作
+//   }
+// });
+window.onbeforeunload = function(e) {
+	// 下载名为a的json文件
+  let a = {};
+  a.name = "a";
+  let json = JSON.stringify(a);
+  let blob = new Blob([json], {type: "text/plain"});
+  let url = window.URL.createObjectURL(blob);
+  let aLink = document.createElement('a');
+  aLink.style.display = 'none';
+  aLink.href = url;
+  aLink.download = 'a.json';
+  document.body.appendChild(aLink);
+  aLink.click();
+  document.body.removeChild(aLink);
+  window.URL.revokeObjectURL(url);
+}
     </script>
 </body>
 </html>
